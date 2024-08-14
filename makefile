@@ -19,3 +19,6 @@ run_serv_loja:
 run_cli_loja:
 	if [ ! -f proto/services_pb2.py ] || [ ! -f proto/services_pb2_grpc.py ]; then make stubs; fi
 	python3 -m client.store $(arg1) $(arg2) $(arg3)
+
+run_serv_both:
+	python3 -m server.wallet 5555 < in.txt & python3 -m server.store 10 6666 Papai_Noel localhost:5555 & wait

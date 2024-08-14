@@ -6,6 +6,8 @@ from proto import services_pb2_grpc as service_grcp
 
 class StoreClient:
     def __init__(self, client, wallet_addr, store_addr):
+        print(wallet_addr)
+        print(store_addr)
         self.__client = client
         self.__price = None
         self.__wallet = WalletClient(client, wallet_addr)
