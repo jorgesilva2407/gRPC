@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package services;
+
+service Wallet {
+    rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {}
+    rpc CreateSalesOrder(CreateSalesOrderRequest) returns (CreateSalesOrderResponse) {}
+    rpc Transfer(TransferRequest) returns (TransferResponse) {}
+    rpc EndWallet(Empty) returns (EndWalletResponse) {}
+}
+
+service Store {
+    rpc GetPrice(Empty) returns (GetPriceResponse) {}
+    rpc Sell(SellRequest) returns (SellResponse) {}
+    rpc EndStore(Empty) returns (EndStoreResponse) {}
+}
+
+message Empty {}
+
+message GetBalanceRequest {
+    string id = 1;
+}
+
+message GetBalanceResponse {
+    int32 balance = 1;
+}
+
+message CreateSalesOrderRequest {
+    string id = 1;
+    int32 amount = 2;
+}
+
+message CreateSalesOrderResponse {
+    int32 status = 1;
+    int32 order_id = 2;
+}
+
+message TransferRequest {
+    int32 order_id = 1;
+    int32 amount = 2;
+    string dest_wallet_id = 3;
+}
+
+message TransferResponse {
+    int32 status = 1;
+}
+
+message EndWalletResponse {
+    int32 pendencies = 1;
+}
+
+message GetPriceResponse {
+    int32 price = 1;
+}
+
+message SellRequest {
+    int32 order_id = 1;
+}
+
+message SellResponse {
+    int32 status = 1; // -9 in case of failure
+}
+
+message EndStoreResponse {
+    int32 revenue = 1;
+    int32 wallet_server_response = 2;
+}
