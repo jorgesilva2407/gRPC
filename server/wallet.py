@@ -63,15 +63,15 @@ class WalletServicer(service_grcp.WalletServicer):
     def EndWallet(self, request, context):
         with self.__lock:
             for wallet_id, balance in self.__wallets.items():
-                print(f"Wallet {wallet_id} has balance {balance}")
+                print(f"{wallet_id} {balance}")
             pending_orders = len(self.__sales_orders)
             self.terminate.set()
         return service.EndWalletResponse(pendencies = pending_orders)
 
 def serve():
     port = int(sys.argv[1])
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     wallet_servicer = WalletServicer()
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     service_grcp.add_WalletServicer_to_server(wallet_servicer, server)
     server.add_insecure_port(f"[::]:{port}")
     server.start()

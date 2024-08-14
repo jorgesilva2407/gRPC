@@ -27,7 +27,6 @@ class StoreServicer(service_grpc.StoreServicer):
         with self.__lock:
             self.__revenue += self.__price
 
-        print(self.__revenue)
         return service.SellResponse(status=response.status)
 
     def EndStore(self, request, context):

@@ -6,6 +6,7 @@ from proto import services_pb2_grpc as service_grcp
 class WalletClient:
     def __init__(self, client, addr) -> None:
         self.__client = client
+        print(addr)
         self.__channel = grpc.insecure_channel(addr)
         self.__stub = service_grcp.WalletStub(self.__channel)
 
@@ -28,6 +29,7 @@ class WalletClient:
 def main():
     client = sys.argv[1]
     addr = sys.argv[2]
+    print(addr)
     wallet_client = WalletClient(client, addr)
 
     while True:
